@@ -1,3 +1,3 @@
-from app import App
+from app import app
 
-App.run()
+app.run( "0.0.0.0" )
