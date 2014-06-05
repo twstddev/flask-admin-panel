@@ -13,5 +13,5 @@ def not_found( error ):
 	return render_template( "404.html" ), 404
 
 if not app.config[ "DEBUG" ]:
-	generate_secret_key()
+	generate_secret_key( app )
 
