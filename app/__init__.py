@@ -26,3 +26,6 @@ def test_menu_item():
 	menu_item.save()
 
 	return menu_item.title
+
+from app.menuitems.views import module as user_module
+app.register_blueprint( user_module )
