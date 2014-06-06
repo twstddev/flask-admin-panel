@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask.ext.mongoengine import MongoEngine
 from .utils import generate_secret_key
+from .template_helpers import helpers
 
 app = Flask( __name__ )
 app.config.from_object( "config" )
@@ -26,6 +27,11 @@ def test_menu_item():
 	menu_item.save()
 
 	return menu_item.title
+
+# register templates helpers
+@app.context_processor
+def inject_helpers():
+	return helpers
 
 from app.menuitems.views import module as user_module
 app.register_blueprint( user_module )

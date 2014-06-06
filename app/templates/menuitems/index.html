@@ -1,3 +1,61 @@
 {% extends "layouts/admin.html" %}
+{% set current_module = "menuitems" %}
+
 {% block content %}
+{% with messages = get_flashed_messages( with_categories = true ) %}
+	{% for category, message in messages %}
+		<p class="alert alert-{{ category }} alert-dismissable">
+			<button class="close" type="button" data-dismiss="true" aria-hidden="true">&times;</button>
+			{{ message }}
+		</p>
+	{% endfor %}
+{% endwith %}
+<section class="admin-panel panel panel-default">
+	<div class="panel-heading">
+		<h4 class="pull-left">
+			Menu
+		</h4>
+		<a class="btn btn-success pull-left" href="#">
+			<i class="glyphicon glyphicon-file"></i>
+			Add new
+		</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="panel-body">
+		<ul class="nav nav-pills nav-stacked admin-pills">
+			<li>
+				<a href="#" class="bg-info">
+					<i class="glyphicon glyphicon-move"></i>
+					Home
+				</a>
+			</li>
+			<li>
+				<a href="#" class="bg-info">
+					<i class="glyphicon glyphicon-move"></i>
+					About
+				</a>
+				<ul class="nav nav-pills nav-stacked">
+					<li>
+						<a href="#" class="bg-warning">
+							<i class="glyphicon glyphicon-move"></i>
+							Company
+						</a>
+					</li>
+					<li>
+						<a href="#" class="bg-warning">
+							<i class="glyphicon glyphicon-move"></i>
+							Team
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="bg-info">
+					<i class="glyphicon glyphicon-move"></i>
+					Contact
+				</a>
+			</li>
+		</ul>
+	</div>
+</section>
 {% endblock %}
