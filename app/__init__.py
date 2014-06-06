@@ -1,9 +1,12 @@
 from flask import Flask, render_template
+from flask.ext.mongoengine import MongoEngine
 from .utils import generate_secret_key
 
 app = Flask( __name__ )
 app.config.from_object( "config" )
 app.debug = app.config[ "DEBUG" ]
+
+db = MongoEngine( app )
 
 @app.errorhandler( 404 )
 def not_found( error ):
