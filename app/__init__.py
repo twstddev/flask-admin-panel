@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask.ext.mongoengine import MongoEngine
-from app.utils import helpers as utils
+from app.utils import ObjectIDConverter, helpers as utils
 from .template_helpers import helpers
 
 app = Flask( __name__ )
@@ -32,6 +32,9 @@ def test_menu_item():
 @app.context_processor
 def inject_helpers():
 	return helpers
+
+# automatically convert mongodb objectids to string values
+app.url_map.converters['objectid'] = ObjectIDConverter
 
 from app.menuitems.views import module as user_module
 app.register_blueprint( user_module )
