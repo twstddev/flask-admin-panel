@@ -1,7 +1,7 @@
 {% extends "layouts/admin.html" %}
 
 {% block content %}
-{% set form_url = url_for( "menuitems:admin.new" ) %}
+{% set form_url = url_for( "menuitems:admin.menu_items" ) %}
 {% set form_action = "POST" %}
 {% include "menuitems/_form.html" %}
 {% endblock %}

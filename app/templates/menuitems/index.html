@@ -15,20 +15,23 @@
 		<h4 class="pull-left">
 			Menu
 		</h4>
-		<a class="btn btn-success pull-left" href="{{ url_for( "menuitems:admin.new" ) }}">
+		<a class="btn btn-success pull-left" href="{{ url_for( "menuitems:admin.new_menu_item" ) }}">
 			<i class="glyphicon glyphicon-file"></i>
 			Add new
 		</a>
 		<div class="clearfix"></div>
 	</div>
 	<div class="panel-body">
+		{% if menu_items.count() %}
 		<ul class="nav nav-pills nav-stacked admin-pills">
+			{% for menu_item in menu_items %}
 			<li>
 				<a href="#" class="bg-info">
 					<i class="glyphicon glyphicon-move"></i>
-					Home
+					{{ menu_item.title }}
 				</a>
 			</li>
+			{% endfor %}
 			<li>
 				<a href="#" class="bg-info">
 					<i class="glyphicon glyphicon-move"></i>
@@ -49,13 +52,8 @@
 					</li>
 				</ul>
 			</li>
-			<li>
-				<a href="#" class="bg-info">
-					<i class="glyphicon glyphicon-move"></i>
-					Contact
-				</a>
-			</li>
 		</ul>
+		{% endif %}
 	</div>
 </section>
 {% endblock %}

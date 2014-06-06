@@ -30,7 +30,7 @@
 							<i class="glyphicon glyphicon-floppy-save"></i>
 							{{ "Save" if form_action == "POST" else "Update" }}
 						</button>
-						<a class="btn btn-warning btn-block" href="{{ url_for( "menuitems:admin.index" ) }}">
+						<a class="btn btn-warning btn-block" href="{{ url_for( "menuitems:admin.menu_items", menu_item_id = None ) }}">
 							<i class="glyphicon glyphicon-remove"></i>
 							Cancel
 						</a>
