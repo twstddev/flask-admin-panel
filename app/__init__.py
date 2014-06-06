@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask.ext.mongoengine import MongoEngine
-from .utils import generate_secret_key
+from app.utils import helpers as utils
 from .template_helpers import helpers
 
 app = Flask( __name__ )
@@ -17,7 +17,7 @@ def not_found( error ):
 	return render_template( "404.html" ), 404
 
 if not app.config[ "DEBUG" ]:
-	generate_secret_key( app )
+	utils.generate_secret_key( app )
 
 from app.menuitems.models import MenuItem
 

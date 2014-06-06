@@ -16,6 +16,14 @@ class NewMenuItemView( MethodView ):
 		form = MenuItemForm( request.form )
 		return render_template( "menuitems/new.html", form = form )
 
+class EditMenuItemView( MethodView ):
+	"""
+	Represents menu item editing form.
+	"""
+	def get( self, menu_item_id ):
+		menu_item = MenuItem.objects.get_or_404( menu_item_id )
+		form = MenuItemForm( request.form, menu_item  )
+		return render_template( "menuitems/edit.html", form = form )
 
 class MenuItemsAdminView( MethodView ):
 	"""
@@ -54,11 +62,13 @@ class MenuItemsAdminView( MethodView ):
 
 # Register resource routes
 menu_item_new_view = NewMenuItemView.as_view( "new_menu_item" )
+menu_item_edit_view = EditMenuItemView.as_view( "edit_menu_item" )
 menu_items_admin_view = MenuItemsAdminView.as_view( "menu_items" )
 
 module.add_url_rule( "/", defaults = { "menu_item_id" : None },
 	view_func = menu_items_admin_view, methods = [ "GET", "POST" ] )
 
 module.add_url_rule( "/new/", view_func = menu_item_new_view, methods = [ "GET" ] )
+module.add_url_rule( "/edit/<int:menu_item_id>/", view_func = menu_item_edit_view, methods = [ "GET" ] )
 
 	
