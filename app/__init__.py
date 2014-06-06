@@ -18,3 +18,11 @@ def not_found( error ):
 if not app.config[ "DEBUG" ]:
 	generate_secret_key( app )
 
+from app.menuitems.models import MenuItem
+
+@app.route( "/" )
+def test_menu_item():
+	menu_item = MenuItem( title = "Home", url = "/" )
+	menu_item.save()
+
+	return menu_item.title
