@@ -2,7 +2,7 @@ import os
 
 BASE_PATH = os.path.abspath( os.path.dirname( __file__ ) )
 
-DEBUG = False
+DEBUG = True
 
 SECRET_KEY = ""
 CSRF_SESSION_KEY = "yoursecretkey"
