@@ -41,6 +41,14 @@ class EditMenuItemView( MethodView ):
 		else:
 			return render_template( "menuitems/edit.html", form = form, menu_item = menu_item )
 
+class DeleteMenuItemView( MethodView ):
+	def post( self, menu_item_id ):
+		menu_item = MenuItem.objects.get_or_404( id = menu_item_id )
+		menu_item.delete()
+
+		flash( "A menu item has been deleted", "success" )
+		return redirect( url_for( "menuitems:admin.menu_items" ) )
+
 class MenuItemsAdminView( MethodView ):
 	"""
 	Represents default controller API interface.
@@ -77,12 +85,14 @@ class MenuItemsAdminView( MethodView ):
 # Register resource routes
 menu_item_new_view = NewMenuItemView.as_view( "new_menu_item" )
 menu_item_edit_view = EditMenuItemView.as_view( "edit_menu_item" )
+menu_item_delete_view = EditMenuItemView.as_view( "delete_menu_item" )
 menu_items_admin_view = MenuItemsAdminView.as_view( "menu_items" )
 
 module.add_url_rule( "/", defaults = { "menu_item_id" : None },
 	view_func = menu_items_admin_view, methods = [ "GET", "POST" ] )
 
 module.add_url_rule( "/new/", view_func = menu_item_new_view, methods = [ "GET" ] )
-module.add_url_rule( "/edit/<menu_item_id>/", view_func = menu_item_edit_view, methods = [ "GET", "POST" ] )
+module.add_url_rule( "/<menu_item_id>/edit/", view_func = menu_item_edit_view, methods = [ "GET", "POST" ] )
+module.add_url_rule( "/<menu_item_id>/delete/", view_func = menu_item_delete_view, methods = [ "POST" ] )
 
 	

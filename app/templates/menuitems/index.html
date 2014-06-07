@@ -25,11 +25,17 @@
 		{% if menu_items.count() %}
 		<ul class="nav nav-pills nav-stacked admin-pills">
 			{% for menu_item in menu_items %}
-			<li>
-				<a href="{{ url_for( "menuitems:admin.edit_menu_item", menu_item_id = menu_item.id ) }}" class="bg-info">
+			<li class="bg-info">
+				<a href="{{ url_for( "menuitems:admin.edit_menu_item", menu_item_id = menu_item.id ) }}">
 					<i class="glyphicon glyphicon-move"></i>
 					{{ menu_item.title }}
 				</a>
+				<form action="{{ url_for( "menuitems:admin.delete_menu_item", menu_item_id = menu_item.id ) }}" method="POST">
+					<input name=_csrf_token type=hidden value="{{ csrf_token() }}" />
+					<button class="btn btn-xs btn-danger" type="submit">
+						<i class="glyphicon glyphicon-trash"></i> Delete
+					</button>
+				</form>
 			</li>
 			{% endfor %}
 			<li>
