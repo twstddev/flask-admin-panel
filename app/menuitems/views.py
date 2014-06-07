@@ -21,9 +21,25 @@ class EditMenuItemView( MethodView ):
 	Represents menu item editing form.
 	"""
 	def get( self, menu_item_id ):
-		menu_item = MenuItem.objects.get_or_404( menu_item_id )
+		menu_item = MenuItem.objects.get_or_404( id = menu_item_id )
 		form = MenuItemForm( request.form, menu_item  )
-		return render_template( "menuitems/edit.html", form = form )
+		return render_template( "menuitems/edit.html",
+			form = form, menu_item = menu_item )
+
+	def post( self, menu_item_id ):
+		"""
+		Updates given menu item.
+		"""
+		menu_item = MenuItem.objects.get_or_404( id = menu_item_id )
+		form = MenuItemForm( request.form )
+		if form.validate_on_submit():
+			form.populate_obj( menu_item )
+			menu_item.save()
+
+			flash( "A menu item has been updated", "success" )
+			return redirect( url_for( "menuitems:admin.menu_items"  ) )
+		else:
+			return render_template( "menuitems/edit.html", form = form, menu_item = menu_item )
 
 class MenuItemsAdminView( MethodView ):
 	"""
@@ -58,8 +74,6 @@ class MenuItemsAdminView( MethodView ):
 			else:
 				return render_template( "menuitems/new.html", form = form )
 
-
-
 # Register resource routes
 menu_item_new_view = NewMenuItemView.as_view( "new_menu_item" )
 menu_item_edit_view = EditMenuItemView.as_view( "edit_menu_item" )
@@ -69,6 +83,6 @@ module.add_url_rule( "/", defaults = { "menu_item_id" : None },
 	view_func = menu_items_admin_view, methods = [ "GET", "POST" ] )
 
 module.add_url_rule( "/new/", view_func = menu_item_new_view, methods = [ "GET" ] )
-module.add_url_rule( "/edit/<int:menu_item_id>/", view_func = menu_item_edit_view, methods = [ "GET" ] )
+module.add_url_rule( "/edit/<menu_item_id>/", view_func = menu_item_edit_view, methods = [ "GET", "POST" ] )
 
 	

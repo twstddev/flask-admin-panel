@@ -6,8 +6,12 @@
 	{% endfor %}
 </p>
 {% endif %}
-<form class="admin-model-form" action="{{ form_url}}" method="{{form_action}}">
+<form class="admin-model-form" action="{{ form_url}}" method="POST">
 	{{ form.csrf_token }}
+	{% if form_action in [ "PUT" ] %}
+	<input type="hidden" name="_method"  value="{{ form_action }}" />
+	
+	{% endif %}
 	<section class="container-fluid">
 		<div class="row">
 			<div class="col-lg-9">
